@@ -1,0 +1,89 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>医诊通V1.0.0</title>
+    <link rel="stylesheet" href="/public/static/css/bootstrap.css" />
+    <link href="/public/static/css/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/public/static/css/css.css" />
+    <link rel="stylesheet" type="text/css" href="/public/static/easyui/themes/gray/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/public/static/easyui/themes/icon.css">
+    <script type="text/javascript" src="/public/static/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/public/static/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/public/static/js/sdmenu.js"></script>
+    <script type="text/javascript" src="/public/static/js/laydate/laydate.js"></script>
+    <link rel="shortcut icon" href="/public/static/images/favicon.ico" />
+    <script type="text/javascript" src="/public/static/easyui/locale/easyui-lang-zh_CN.js"></script>
+
+
+</head>
+<body>
+<ul class="breadcrumb">
+    首页<span class="divider">/</span>更多设置<span class="divider">/</span>打印设置
+</ul>
+<div class="title_right"><strong>打印设置正在开发中...</strong></div>
+<div style="position:absolute; right:15px;top:4px;">
+    {include file="common:userinfo"}
+    <style>
+        .breadcrumb {
+            margin: 0px;
+            padding: 5px;
+        }
+    </style>
+
+
+    <div class="margin-bottom-5">
+        <!--<a  class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="#">保存</a>-->
+        <!--<a onclick="reloadurl()" class="easyui-linkbutton" data-options="iconCls:'icon-refresh'">刷新</a>-->
+    </div>
+
+    <div id="divpadding" class="margin-top-5" style="clear:both">
+        <div id="rangegrid" style="min-height:500px; width:100%;">
+
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+
+
+    $("#doconfirm").click(function(){
+        var arr = getSelectedArr();
+        //if (IsSubmit) {
+        //IsSubmit = false;
+        $.post("{:url('index/debt/confirmDebt')}",{arr:arr},
+            function (result) {
+                var results = eval('('+result+')');
+                //console.info(results);
+                //IsSubmit = true;
+                if (results.code == 1) {
+                    $.messager.alert('欠款结算提示',results.msg,'info',function(){
+                        window.location.href = "{:url('index/debt/index')}";
+                    });
+
+                }
+                else {
+                    $.messager.alert('欠款结算提示',results.msg,'warning');
+                }
+            }, "json");
+        //}
+    });
+
+    var ids = [];
+    function getSelectedArr() {
+        var rows = $('#rangegrid').datagrid('getSelections');
+        for (var i = 0; i < rows.length; i++) {
+            ids.push(rows[i].arrears_id);
+        }
+        return ids;
+    }
+
+
+    //刷新
+    function reloadurl()
+    {
+        window.location.href = "{:url('index/more/index')}";
+    }
+</script>
+</html>

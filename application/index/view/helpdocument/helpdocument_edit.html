@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>医诊通V1.0.0</title>
+    <link rel="stylesheet" href="/public/static/css/bootstrap.css" />
+    <link rel="stylesheet" href="/public/static/css/css.css" />
+    <link href="/public/static/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/public/static/images/favicon.ico" />
+    <script type="text/javascript" src="/public/static/js/sdmenu.js"></script>
+    <link rel="stylesheet" type="text/css" href="/public/static/easyui/themes/gray/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/public/static/easyui/themes/icon.css">
+    <script type="text/javascript" src="/public/static/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/public/static/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/public/static/easyui/jquery.edatagrid.js"></script>
+    <script type="text/javascript" src="/public/static/easyui/locale/easyui-lang-zh_CN.js"></script>
+
+
+
+</head>
+<body>
+<ul class="breadcrumb">
+    首页<span class="divider">/</span>{$arr['parent_rule']}<span class="divider">/</span>{$arr['rule']}
+</ul>
+<div class="title_right"><strong>{$arr['rule']}</strong></div>
+<div style="position:absolute; right:15px;top:4px;">
+    {include file="common:userinfo"}
+    <style>
+        .breadcrumb {
+            margin: 0px;
+            padding: 5px;
+        }
+    </style>
+            <div class="margin-bottom-5">
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" href="javascript:add()">保存</a>
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-list'" href="{:url('index/helpdocument/index')}">列表</a>
+            </div>
+
+            <div class="form_table2">
+                <div class="row">
+                    <form id="dd">
+                        <ul>
+                            <li><label>类型</label>
+                            <select name="bzwdgl_state" id="bzwdgl_state">
+                                <option>请选择</option>
+                            </select>
+                            <input type="hidden" id="type" name="type" />
+                            </li>
+                            <li><label>标题</label><input type="text" name="bzwdgl_title" value="{$data.bzwdgl_title}"/></li>
+                            <li><label>自定义时间</label><input type="text"  name="bzwdgl_customize_time" value="{$data.bzwdgl_customize_time|date='Y-m-d',###}" class="easyui-datebox" editable="false" style="width:174px"/></li>
+                            <li><label>内容</label><textarea style="width:170px;height:80px" name="bzwdgl_contents">{$data.bzwdgl_contents}</textarea></li>
+                            <input type="hidden" name="id" value="{$id}"/>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var ghsz_type = "{$data.bzwdgl_state}";
+    $(document).ready(function () {
+        //Async(false);
+        Bindqylx();//绑定企业类型
+        $("#bzwdgl_state").change(function () {
+            $("#gyslx").val($(this).find("option:selected").text());
+        });
+        //Async(true);
+    });
+    //绑定供应商资料类型
+    function Bindqylx() {
+        $("#bzwdgl_state").html("");
+        //$("#ghsz_type").html(option);
+        $.post("{:url('index/helpdocument/type')}", {}, function (result) {
+            var str = "<option>请选择</option>";
+            var check = '';
+            $.each(result, function (i, item) {
+                 if (ghsz_type == item.id) {
+                      check = 'selected';
+                  }else{
+                       check = '';
+                  }
+                str +="<option value='" + item.id + "'  "+check+">" + item.name + "</option>";
+            });
+             $("#bzwdgl_state").append( str);
+        },'json')
+    };
+
+
+    function add(){
+        $.ajax({
+            url:"{:url('index/helpdocument/editdobutton')}",
+            type:"POST",
+            data:$('#dd').serialize(),
+            success:function(result){
+                var results = eval('('+result+')');
+                if(results.error == 1){
+                    $.messager.alert('提示',results.msg,'info',function(){
+                        window.location.href = "{:url('index/helpdocument/index')}";
+                    });
+                }else {
+                    $.messager.alert('提示',results.msg,'warning');
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

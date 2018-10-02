@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>诊所通V1.0.0</title>
+<link rel="stylesheet" href="/zhensuotong/public/static/css/bootstrap.css" />
+<link href="/zhensuotong/public/static/css/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/zhensuotong/public/static/css/css.css" />
+<link rel="stylesheet" type="text/css" href="/zhensuotong/public/static/easyui/themes/gray/easyui.css">
+<link rel="stylesheet" type="text/css" href="/zhensuotong/public/static/easyui/themes/icon.css">
+<script type="text/javascript" src="/zhensuotong/public/static/easyui/jquery.min.js"></script>
+<script type="text/javascript" src="/zhensuotong/public/static/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/zhensuotong/public/static/js/sdmenu.js"></script>
+<script type="text/javascript" src="/zhensuotong/public/static/js/laydate/laydate.js"></script>
+<link rel="shortcut icon" href="/zhensuotong/public/static/images/favicon.ico" />
+
+
+
+</head>
+<body>
+{include file="common/header" /}
+<div id="middle">
+		{include file="common/nav" /}
+		<div class="right" id="mainFrame">
+			<div class="right_cont">
+                <ul class="breadcrumb">
+					首页<span class="divider">/</span>诊所通用户<span class="divider">/</span>用户管理
+					<div style="float:right">
+                    {if condition="$ver eq 'chaoji'"}
+                                超级管理员（admins）
+							{elseif condition="$ver eq 'zhensuo'" /}
+                                长春市绿园区丁晓林西医内科诊所（ccdxlzs）
+                            {elseif condition="$ver eq 'zhiyuan'" /}
+                                长春市绿园区丁晓林西医内科诊所（职员）王小美（ccdxlzs01）
+                    	{/if}
+	                    2018年09月11日 12:00:00
+                    </div>
+                </ul>
+                <div class="title_right"><strong>用户管理</strong></div>
+<div class="margin-bottom-5">
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="用户管理_新建.asp?ver=<%=request.QueryString("ver")%>">新建</a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-edit'" href="#">修改</a>
+	<a class="easyui-linkbutton" data-options="iconCls:'icon-other8'">审核</a>
+	<a class="easyui-linkbutton" data-options="iconCls:'icon-ok'">启用</a>
+	<a class="easyui-linkbutton" data-options="iconCls:'icon-del'">停用</a>
+					<select style="height:24px;line-height:24px; width:auto">
+                        <option>按状态筛选</option>
+                        <option>待审核</option>
+                        <option>已启用</option>
+                        <option>已停用</option>
+                    </select>
+                    <select style="height:24px;line-height:24px; width:auto">
+                        <option>按类型筛选</option>
+                        <option>单体</option>
+                        <option>连锁</option>
+                    </select>
+                    <input type="text" placeholder="请输入查询关键字" style="width:200px" />
+                    <a class="easyui-linkbutton" data-options="iconCls:'icon-search'">查找</a>
+                    <a class="easyui-linkbutton" data-options="iconCls:'icon-excel'">导出</a>
+    
+    
+    
+	<a class="easyui-linkbutton" data-options="iconCls:'icon-refresh'">刷新</a>
+</div>
+
+			<div id="divpadding" class="margin-top-5" style="clear:both">
+            
+            
+            <table id="dg" class="easyui-datagrid"  data-options="rownumbers:true,singleSelect:true,url:'datagrid_data1.json',method:'get'">
+		<thead>
+			<tr> 		
+				<th data-options="field:'ck',checkbox:true"></th>
+				<th data-options="field:'0',align:'left'">状态</th> 
+				<th data-options="field:'1',align:'left'">用户类型</th> 
+				<th data-options="field:'2',align:'left'">用户编码</th>      
+				<th data-options="field:'3',align:'left'">用户全称</th>      
+				<th data-options="field:'4',align:'left'">省份</th>      
+				<th data-options="field:'5',align:'left'">城市</th>      
+				<th data-options="field:'6',align:'left'">区县</th>      
+				<th data-options="field:'7',align:'left'">联系人</th>      
+				<th data-options="field:'8',align:'left'">联系电话</th>      
+				<th data-options="field:'9',align:'left'">开通时间</th>      
+				<th data-options="field:'10',align:'left'">到期时间</th>      
+				<th data-options="field:'11',align:'left'">客服</th>      
+				<th data-options="field:'12',align:'left'">终端经理</th>      
+			</tr>
+		</thead>                       
+    <tr>
+        <td></td>
+        <td>已启用</td>
+        <td>单体</td>
+        <td>ZS000001</td>
+        <td>长春市绿园区丁晓林西医内科诊所</td>
+        <td>吉林省</td>
+        <td>长春市</td>
+        <td>绿园区</td>
+        <td>王小美</td>
+        <td>13012345678</td>
+        <td>2018-09-11</td>
+        <td>2019-09-11</td>
+        <td>任长庆</td>
+        <td>张强</td>
+    </tr>
+</table>
+
+</div>
+              
+            </div>
+        </div>
+</div>
+</body>
+</html>

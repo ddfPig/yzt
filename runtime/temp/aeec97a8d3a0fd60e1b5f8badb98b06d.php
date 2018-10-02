@@ -1,0 +1,61 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:74:"C:\phpStudy\PHPTutorial\WWW\tp/application/index\view\home\impotrView.html";i:1538097477;}*/ ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>医诊通V1.0.0</title>
+    <link rel="stylesheet" href="/public/static/css/bootstrap.css" />
+    <link href="/public/static/css/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/public/static/css/css.css" />
+    <link rel="stylesheet" type="text/css" href="/public/static/easyui/themes/gray/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/public/static/easyui/themes/icon.css">
+    <script type="text/javascript" src="/public/static/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/public/static/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/public/static/js/sdmenu.js"></script>
+    <script type="text/javascript" src="/public/static/js/laydate/laydate.js"></script>
+    <link rel="shortcut icon" href="/public/static/images/favicon.ico" />
+</head>
+<body>
+<form  enctype="multipart/form-data"  id="uploads">
+    <p>导入供应商信息时先下载导入模板&nbsp;&nbsp;<a href="/data/importgys.xls">点击下载</a></p>
+<div class="margin-bottom-5 nowrap">
+    <input type="file" name="file" /> <br><br>
+    <input id='excelTo' type='button'  value='导入信息' />
+</div>
+</form>
+<script type="text/javascript">
+   $("#excelTo").click(function(){
+       var formData = new FormData($('form')[0]);
+       formData.append('file',$(':file')[0].files[0]);
+
+       $.ajax({
+           type:'POST',
+           url:"<?php echo url('index/home/importGys'); ?>",
+           data:formData,
+           contentType:false,
+           processData:false,
+           mimeType:"multipart/form-data",
+           beforeSend:function(){
+               $.messager.progress();
+           },
+           success:function(result){
+               var results = eval('('+result+')');
+               if (results.code == 1) {
+                   $.messager.alert('供应商导入信息提示',results.msg,'info',function(){
+                       //window.parent.location.reload();
+                       window.location.href = "<?php echo url('index/base/supplier'); ?>";
+                   });
+               }
+               else {
+                   $.messager.alert('供应商导入信息提示',results.msg,'warning');
+               }
+           },
+           complete:function(){
+               $.messager.progress('close');
+           }
+       });
+   });
+</script>
+
+</body>
+</html>

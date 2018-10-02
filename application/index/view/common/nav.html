@@ -1,0 +1,33 @@
+
+        <!--一级菜单遍历开始-->
+
+        {foreach name="menus" item="v"}
+        <div sort="">
+             <span sort="">
+               {$v.title}
+            </span>
+        {if condition="!empty($v['_child'])"}
+
+            <!--二级菜单遍历开始-->
+            {foreach name="v._child" item="vv"}
+
+                {if condition="!empty($vv['_child'])"}
+
+                    <a attr_id="sonMenu" href="{:url($vv['name'])}" target="mainFrame" onclick="OnListeniframeDocumentReady({$vv.id});"> {$vv.title}</a>
+                    <!--三级菜单遍历开始-->
+                        {foreach name="vv._child" item="vvv"}
+                        <a attr_id="sonMenu" href="{:url($vvv['name'])}" target="mainFrame" onclick="OnListeniframeDocumentReady({$vvv.id});">{$vvv.title}</a>
+
+                        {/foreach}<!--三级菜单遍历结束-->
+
+                {else /}
+
+                    <a attr_id="sonMenu" href="{if $vv.id ==49}javascript:void(0);{else/}{:url($vv['name'])}{/if}" target="mainFrame"  {if $vv.id ==49}onclick="SignOut();"{else/}onclick="OnListeniframeDocumentReady({$vv.id});"{/if}> {$vv.title}</a>
+                {/if}
+            {/foreach}<!--二级菜单遍历结束-->
+
+        {else /}
+            <a attr_id="sonMenu" href="{:url($v['name'])}" target="mainFrame" onclick="OnListeniframeDocumentReady({$v.id});">{$v.title}</a>
+        {/if}
+        </div>
+        {/foreach}<!--一级菜单遍历结束-->

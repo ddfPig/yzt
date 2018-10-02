@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>医诊通V1.0.0</title>
+    <link rel="stylesheet" href="/public//static/css/bootstrap.css" />
+    <link href="/public//static/css/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/public//static/css/css.css" />
+    <link rel="stylesheet" type="text/css" href="/public//static/easyui/themes/gray/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/public//static/easyui/themes/icon.css">
+    <script type="text/javascript" src="/public//static/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/public//static/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/public//static/js/sdmenu.js"></script>
+    <script type="text/javascript" src="/public//static/js/laydate/laydate.js"></script>
+    <link rel="shortcut icon" href="/public//static/images/favicon.ico" />
+
+</head>
+<body>
+<ul class="breadcrumb">
+    首页<span class="divider">/</span>{$arr['parent_rule']}<span class="divider">/</span>{$arr['rule']}
+</ul>
+<div class="title_right"><strong>{$arr['rule']}</strong></div>
+<div style="position:absolute; right:15px;top:4px;">
+    {include file="common:userinfo"}
+    <style>
+        .breadcrumb {
+            margin: 0px;
+            padding: 5px;
+        }
+    </style>
+
+
+            <div class="margin-bottom-5">
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="saveRule()">保存</a>
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-list'" href="{:url('index/rule/index')}">列表</a>
+            </div>
+
+            <div class="form_table2">
+                <form action="" method="post" id="rule">
+                    <div class="row">
+                        <ul style="width:500px;">
+                            <li>
+                                <label>用户类型</label>
+                                <select name="status">
+                                    <option value="">是否显示</option>
+                                    <option value="0">隐藏</option>
+                                    <option value="1">显示</option>
+                                </select>
+                            </li>
+
+                            <li>
+                                <label>父级</label>
+                                <select name="pid">
+                                    <option value="">默认顶级</option>
+                                    {volist name="list" id="vo"}
+
+                                        <option value="{$vo.id}" style="margin-left:{$vo.lvl}px;">{$vo.lefthtml}{$vo.title}</option>
+                                    {/volist}
+                                </select>
+                            </li>
+
+                            <li><label>菜单名称</label><input type="text" name="title"/></li>
+                            <li><label>url地址</label><input type="text"  name="name" /></li>
+                            <li><label>排序</label><input type="text"  name="sort" /></li>
+                        </ul>
+
+                    </div>
+
+                </form>
+            </div>
+
+
+</div>
+
+</body>
+<script>
+
+    function saveRule(){
+        $('#rule').form('submit',{
+            url: "{:url('index/rule/insertRule')}",
+            onSubmit: function(){
+                //return $(this).form('validate');
+            },
+            success: function(result){
+                var results = eval('('+result+')');
+                if(results.code == 1){
+                    $.messager.alert('权限菜单操作提示',results.msg,'info',function(){
+                        window.location.href = "{:url('index/rule/index')}";
+                    });
+
+                }else{
+
+                    $.messager.alert('权限菜单操作提示',results.msg,'warning');
+                }
+            }
+        });
+    }
+</script>
+</html>

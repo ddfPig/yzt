@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>医诊通V1.0.0</title>
+    <link rel="stylesheet" href="/public/static/css/bootstrap.css" />
+    <link rel="stylesheet" href="/public/static/css/css.css" />
+    <link href="/public/static/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/public/static/images/favicon.ico" />
+    <script type="text/javascript" src="/public/static/js/sdmenu.js"></script>
+    <link rel="stylesheet" type="text/css" href="/public/static/easyui/themes/gray/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/public/static/easyui/themes/icon.css">
+    <script type="text/javascript" src="/public/static/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/public/static/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/public/static/easyui/jquery.edatagrid.js"></script>
+    <script type="text/javascript" src="/public/static/easyui/locale/easyui-lang-zh_CN.js"></script>
+
+
+
+</head>
+<body>
+<ul class="breadcrumb">
+    首页<span class="divider">/</span>{$arr['parent_rule']}<span class="divider">/</span>{$arr['rule']}
+</ul>
+<div class="title_right"><strong>{$arr['rule']}</strong></div>
+<div style="position:absolute; right:15px;top:4px;">
+    {include file="common:userinfo"}
+    <style>
+        .breadcrumb {
+            margin: 0px;
+            padding: 5px;
+        }
+    </style>
+            <div class="margin-bottom-5">
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" href="javascript:add()">保存</a>
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-list'" href="{:url('index/qualificationname/index')}">列表</a>
+            </div>
+            <div class="form_table1">
+                <form id="dd">
+                    <input type="hidden" name="id" value="{$id}"/>
+                    <div class="row"><ul><li><label>状态</label><input type="text" readonly="readonly" name="zzgl_state" value="{if $data.zzgl_state == 1 }已启用{else/}已停用{/if}"/></li></ul></div>
+                    <div class="row"><ul><li><label>证书编号</label><input type="text" placeholder="必填" name="zzgl_id" value="{$data.zzgl_id}"/></li></ul></div>
+                    <div class="row"><ul><li><label>证书名称</label><input type="text" placeholder="必填" name="zzgl_name" value="{$data.zzgl_name}"/></li></ul></div>
+                    <div class="row"><ul><li><label>创建人</label><input type="text" readonly="readonly" name="zzgl_create_name" value="{$data.zzgl_create_name}"/></li></ul></div>
+                    <div class="row"><ul><li><label>创建时间</label><input type="text" readonly="readonly" name="zzgl_create_time" value="{$data.zzgl_create_time|date='Y-m-d H:i:s',###}"/></li></ul></div>
+                    <div class="row"><ul><li><label>最后修改人</label><input type="text" readonly="readonly" name="zzgl_last_name" value="{$data.zzgl_last_name}"/></li></ul></div>
+                    <div class="row"><ul><li><label>最后修改时间</label><input type="text" readonly="readonly" name="zzgl_last_time"  value="{$data.zzgl_last_time|date='Y-m-d H:i:s',###}"/></li></ul></div>
+                </form>
+            </div>
+</div>
+<script>
+    function add(){
+        $.ajax({
+            url:"{:url('index/qualificationname/qua_edit_button')}",
+            type:"POST",
+            data:$('#dd').serialize(),
+            success:function(result){
+                var results = eval('('+result+')');
+                if(results.error == 1){
+                    $.messager.alert('提示',results.msg,'info',function(){
+                        window.location.href = "{:url('index/qualificationname/index')}";
+                    });
+                }else {
+                    $.messager.alert('提示',results.msg,'warning');
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

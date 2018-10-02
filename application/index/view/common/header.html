@@ -1,0 +1,72 @@
+<div class="header">
+    <div class="logo">
+        <img src="/public/static/images/logo2.png"/>
+    </div>
+    <div class="header-right">
+        <style>
+            .ul {
+                list-style-type: none
+            }
+
+            .ul li {
+                height: 40px;
+                margin: 0 0;
+                float: left;
+                color: #fff
+            }
+
+            .ul li a {
+                display: block;
+                line-height: 40px;
+                cursor: pointer;
+                text-align: center;
+                color: #fff;
+                font-size: 14px;
+                font-family: '微软雅黑';
+                text-decoration: none;
+                padding: 0 10px
+            }
+
+            .ul li:hover {
+                text-decoration: none;
+                background-color: #1BBC9B;
+                color: #fff !important
+            }
+
+            .ul li a:hover {
+                text-decoration: none;
+                color: #fff !important
+            }
+        </style>
+        <ul class="ul">
+            <li><a href="javascript:;"><i class="fa fa-home fa-lg"></i> <span class="title">首页</span></a></li>
+            <!--li><a href="javascript:;"><i class="fa fa-clipboard fa-lg"></i> <span class="title">质量管理制度</span></a></li>
+            <li><a href="javascript:;"><i class="fa fa-table fa-lg"></i> <span class="title">岗位职责说明</span></a></li>
+            <li><a href="javascript:;"><i class="fa fa-bar-chart fa-lg"></i> <span class="title">报表查询</span></a></li-->
+            <li style="margin-right:0">
+                <a onclick="SignOut();" style="width:54px;">
+                    <i class="fa fa-power-off fa-lg"></i>
+                    <span class="title">退出</span>
+                </a>
+            </li>
+            <script>
+                function SignOut(){
+                    $.messager.confirm('退出提示', '您确定退出系统吗?', function(r){
+                        if (r){
+                            window.location.href = "{:url('index/login/logout')}";
+                        }
+                    });
+                }
+
+            </script>
+        </ul>
+        <div id="modal-container-973558" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true" style="width:300px; margin-left:-150px; top:30%">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">安全退出</h3>
+            </div>
+
+        </div>
+    </div>
+</div>

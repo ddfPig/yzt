@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>医诊通V1.0.0</title>
+    <link rel="stylesheet" href="/public/static/css/bootstrap.css" />
+    <link rel="stylesheet" href="/public/static/css/css.css" />
+    <link href="/public/static/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/public/static/images/favicon.ico" />
+    <script type="text/javascript" src="/public/static/js/sdmenu.js"></script>
+    <link rel="stylesheet" type="text/css" href="/public/static/easyui/themes/gray/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/public/static/easyui/themes/icon.css">
+    <script type="text/javascript" src="/public/static/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/public/static/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/public/static/easyui/jquery.edatagrid.js"></script>
+    <script type="text/javascript" src="/public/static/js/laydate/laydate.js"></script>
+    <script type="text/javascript" src="/public/static/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="/public/static/easyui/locale/easyui-lang-zh_CN.js"></script>
+
+
+</head>
+<body>
+<ul class="breadcrumb">
+    首页<span class="divider">/</span>{$arr['parent_rule']}<span class="divider">/</span>{$arr['rule']}
+</ul>
+<div class="title_right"><strong>{$arr['rule']}</strong></div>
+<div style="position:absolute; right:15px;top:4px;">
+    {include file="common:userinfo"}
+    <style>
+        .breadcrumb {
+            margin: 0px;
+            padding: 5px;
+        }
+    </style>
+            <div class="margin-bottom-5">
+                {if $uinfo['role_short']!='zd'}
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-save'"  href="javascript:edit()">保存</a>
+                {/if}
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-list'" href="{:url('index/customer/index')}">列表</a>
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-refresh'" id="sx">刷新</a>
+            </div>
+
+            <div class="form_table2">
+
+                <div class="row">
+                    <form id="dd">
+                        <ul>
+                            <input type="hidden" id="id" name="id" value="{$id}"/>
+                            <input type="hidden" name="pkfgl_admin_id" value="{$data.pkfgl_admin_id}"/>
+                            <li><label>编码</label><input type="text" name="pkfgl_id" readonly="readonly" value="{$data.pkfgl_id}"/></li>
+                            <li><label for="name">姓名</label><input type="text" placeholder="必填" name="pkfgl_name" value="{$data.pkfgl_name}" /></li>
+                            <li><label>登录用户名</label><input type="text" placeholder="必填" name="pkfgl_username" value="{$data.pkfgl_username}" readonly="readonly"/></li>
+                            <li><label>登录密码</label><input type="text" placeholder="必填" name="pkfgl_code" /></li>
+                            <li><label>手机号</label><input type="text" placeholder="必填" name="pkfgl_phone" value="{$data.pkfgl_phone}"/></li>
+                            <li><label>固定电话</label><input type="text" name="pkfgl_landline" value="{$data.pkfgl_landline}"></li>
+                            <li><label>QQ</label><input type="text" name="pkfgl_qq" value="{$data.pkfgl_qq}"></li>
+                            <li><label>邮箱</label><input type="text" name="pkfgl_email" value="{$data.pkfgl_email}"></li>
+                        </ul>
+                    </form>
+
+                </div>
+            </div>
+
+</div>
+
+<script>
+
+    $("#sx").click(function () {
+
+        var id = $("#id").val();
+
+        window.location.href = '/index.php/index/customer/edit?id=' + id;
+    })
+
+    function edit(){
+        $.ajax({
+            url:"{:url('index/customer/editbutton')}",
+            type:"POST",
+            data:$('#dd').serialize(),
+            success:function(result){
+                var results = eval('('+result+')');
+                if(results.error == 1){
+                    $.messager.alert('提示',results.msg,'info',function(){
+                        window.location.href = "{:url('index/customer/index')}";
+                    });
+                }else{
+                    $.messager.alert('提示',results.msg,'warning');
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

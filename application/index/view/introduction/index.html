@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>医诊通V1.0.0</title>
+    <link rel="stylesheet" href="/public/static/css/bootstrap.css" />
+    <link rel="stylesheet" href="/public/static/css/css.css" />
+    <link href="/public/static/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/public/static/images/favicon.ico" />
+    <script type="text/javascript" src="/public/static/js/sdmenu.js"></script>
+    <link rel="stylesheet" type="text/css" href="/public/static/easyui/themes/gray/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/public/static/easyui/themes/icon.css">
+    <script type="text/javascript" src="/public/static/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/public/static/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/public/static/easyui/jquery.edatagrid.js"></script>
+    <script type="text/javascript" src="/public/static/easyui/locale/easyui-lang-zh_CN.js"></script>
+
+
+</head>
+<body>
+<ul class="breadcrumb">
+    首页<span class="divider">/</span>{$arr['parent_rule']}<span class="divider">/</span>{$arr['rule']}
+</ul>
+<div class="title_right"><strong>{$arr['rule']}</strong></div>
+<div style="position:absolute; right:15px;top:4px;">
+    {include file="common:userinfo"}
+    <style>
+        .breadcrumb {
+            margin: 0px;
+            padding: 5px;
+        }
+    </style>
+            <div class="margin-bottom-5">
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" href="javascript:add()">保存</a>
+            </div>
+
+            <div class="form_table5">
+                <div class="row1">
+                    <form id="dd">
+                    <ul>
+                        <li><label>系统名称</label><input type="text" name="gxxtjj_name" value="{$data.gxxtjj_name}"/></li>
+                        <li><label>系统版本</label><input type="text" name="gxxtjj_version" value="{$data.gxxtjj_version}"/></li>
+                        <li><label style="line-height:16px;">服务电话</label><input type="text" name="gxxtjj_phone" value="{$data.gxxtjj_phone}"/></li>
+                        <li><label>服务QQ</label><input type="text" name="gxxtjj_qq" value="{$data.gxxtjj_qq}"/></li>
+                        <li><label>更多介绍</label><textarea style="width:80%;height:200px" name="gxxtjj_more" >{$data.gxxtjj_more}</textarea></li>
+                    </ul>
+                    </form>
+                </div>
+            </div>
+</div>
+<script>
+    function add(){
+        $.ajax({
+            url:"{:url('index/introduction/intaddbutton')}",
+            type:"POST",
+            data:$('#dd').serialize(),
+            success:function(result){
+                var results = eval('('+result+')');
+                if(results.error == 1){
+                    $.messager.alert('提示',results.msg,'info',function(){
+                        window.location.href = "{:url('index/introduction/index')}";
+                    });
+                }else {
+                    $.messager.alert('提示',results.msg,'warning');
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

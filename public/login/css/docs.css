@@ -1,0 +1,91 @@
+/*reset*/
+html,body{min-width:1200px;width:100%;min-height: 100%;}
+html,body,h1,h2,h3,h4,h5,h6,p,blockquote,pre,address,img,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,caption{margin:0;padding:0;border:0}
+body{background:#f9f9f9;font-size:16px;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:rgba(255,255,255,0);font-family: "微软雅黑", sans-serif}
+a{text-decoration:none;outline:0;}
+ol,ul{list-style:none}
+blockquote,q{quotes:none}
+.clear{ clear:both; line-height:0px; height:0; overflow:hidden;}
+blockquote::before,blockquote::after,q::before,q::after{content:none}
+ins{text-decoration:none}del{text-decoration:line-through}
+button,input,select,textarea{font-family:inherit;font-size:100%;vertical-align:middle;outline: none}
+textarea{resize:none;overflow:auto;vertical-align:top}
+[hidden]{display:none}
+a,a:hover, a:visited, a:link, a:active {color:#000;}
+table{border-collapse:collapse;border-spacing:0}
+.clearfix:before,.clearfix:after{display:table;line-height:0;content:""}
+.clearfix:after{clear:both}
+.clearfix{zoom:1}
+img {border:0;height: auto;width: auto\9; /* ie8 */ vertical-align:middle;}
+i{font-style: normal;}
+input{-webkit-appearance: none;}
+
+body{background:url(../img/combk.jpg) no-repeat top left;background-size:100% 100%;}
+.ztsg{-webkit-animation: fadeInUp 2s .2s ease both;-moz-animation: fadeInUp 1s .2s ease both;-ms-animation: fadeInUp 2s .2s ease both;}
+.combk{width:100%;height:100%;position:absolute; left:0; top:0; z-index:-1;min-width:1200px;}
+.faw{text-align:right;width:94%;margin:0 auto;margin-top:24px;}
+.faw a{color:#c4e9f3;font-size:14px}
+.faw a:hover{text-decoration: underline;}
+.logodiv{text-align:center;margin-top:100px;margin-bottom:36px;}
+.zhp{text-align:center;margin: 0 auto;margin-bottom:22px;position:relative;}
+.zhp input{width:218px;border:none;border-bottom:1px solid #4d8bd1;background:none;line-height:35px;font-size:14px;color:#fff;text-indent:60px;opacity: 0.9;}
+.zhp input::-webkit-input-placeholder{color:#ffffff;opacity: 0.9;}
+.zhp input:-moz-placeholder{color:#ffffff;opacity: 0.9;}
+.zhp input::-moz-placeholder{color:#ffffff;opacity: 0.9;}
+.zhp input:-ms-input-placeholder{color:#ffffff;opacity: 0.9;}
+.loginbtn{width:218px;margin:0 auto;background:#fabf00;}
+.dlbtn{text-align:center;}
+.dlbtn input{line-height:40px;border:none;color:#fff;font-size:18px;margin-top:2px;cursor:pointer;}
+.dlbtn input:hover{background:#efb600}
+.shuju{width:730px;margin:0 auto;margin-top:42px;}
+.shujulist li{float:left;width:130px;}
+.slnum{text-align:center;font-size:12px;color:#fff;opacity: 0.7;}
+.slitem{font-size:12px;text-align:center;color:#fff;opacity: 0.7;}
+.slui{font-size:24px;}
+.slui2{font-size:24px;}
+.wxtips{text-align:center;margin-top:120px;font-size:12px;color:#fff;opacity: 0.5;}
+.copyright{text-align:center;font-size:12px;color:#fff;opacity: 0.5;margin-top:13px;margin-bottom:30px;}
+.fwh{position:absolute;right:43px;top:270px;text-align:center;font-size:12px;}
+.fwhone{margin-bottom:34px;cursor: pointer;position:relative;}
+.fwhone p{line-height:16px;color:#fff;opacity: 0.7;}
+.fwp1{margin-top:5px;}
+.hideimg{position: absolute;left: -94px;top: -14px;display:none;width:92px;height:92px;}
+.fwhone:hover .hideimg{display:block;}
+  @-webkit-keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                -webkit-transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                -webkit-transform: translateY(0);
+            }
+        }
+
+        @-moz-keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                -moz-transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                -moz-transform: translateY(0);
+            }
+        }
+
+.falsetip{transition:0.5s;position:absolute;color:#462929;opacity:0.5;font-size:12px;display:none;background:#d5d5d5;padding:0px 5px;top:12px;}
+.falsetip:before{
+	     content: '';
+    width: 0;
+    height: 0;
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    border-right: 5px solid #d5d5d5;
+    position: absolute;
+    left: -5px;
+    bottom: 5px;
+    z-index: -1;
+}
+

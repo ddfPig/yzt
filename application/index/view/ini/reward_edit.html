@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>医诊通V1.0.0</title>
+    <link rel="stylesheet" href="/public/static/css/bootstrap.css" />
+    <link rel="stylesheet" href="/public/static/css/css.css" />
+    <link href="/public/static/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/public/static/images/favicon.ico" />
+    <script type="text/javascript" src="/public/static/js/sdmenu.js"></script>
+    <link rel="stylesheet" type="text/css" href="/public/static/easyui/themes/gray/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/public/static/easyui/themes/icon.css">
+    <script type="text/javascript" src="/public/static/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/public/static/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/public/static/easyui/locale/easyui-lang-zh_CN.js"></script>
+</head>
+<body>
+<ul class="breadcrumb">
+    首页<span class="divider">/</span>{$arr['parent_rule']}<span class="divider">/</span>{$arr['rule']}
+</ul>
+<div class="title_right"><strong>{$arr['rule']}</strong></div>
+<div style="position:absolute; right:15px;top:4px;">
+    {include file="common:userinfo"}
+    <style>
+        .breadcrumb {
+            margin: 0px;
+            padding: 5px;
+        }
+    </style>
+	
+                <div class="margin-bottom-5">
+                    <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" href="javascript:add()">保存</a>
+                </div>
+    <div class="form_table2">
+        <div class="row">
+            <form id="dd">
+            <ul>
+                <input type="hidden" name="clinic_id" value="{$shop_id}"/>
+                <li><label>用户编码</label><input type="text" placeholder="必填，仅先数字"  name="shop_number" value="{$shop_number}" readonly="readonly"/></li>
+                <li><label>用户全称</label><input type="text" placeholder="必填，仅先数字"  name="shop_name" value="{$shop_name}" readonly="readonly"/></li>
+                <li><label style="line-height:16px;">开启储值奖励</label><input type="checkbox" id="Yejl" name="cshsz_kqczjl" {if $cshsz_kqczjl == 1} checked {/if}  value="1" onclick="jl($(this));" /> 是<input type="checkbox" id="Yejl2" {if $cshsz_kqczjl == 0} checked {/if}  name="cshsz_kqczjl" value="0" onclick="jl($(this));" /> 否</li>
+            </ul>
+            </form>
+        </div>
+    </div>
+
+
+
+        </div>
+</div>
+<script>
+
+    function jl(obj) {
+        if (obj.is(":checked")) {
+            // 先把所有的checkbox 都设置为不选种
+            $('input[name="cshsz_kqczjl"]').prop('checked', false);
+            // 把自己设置为选中
+            obj.prop('checked',true);
+        }
+    }
+
+
+    function add(){
+        $.ajax({
+            url:"{:url('index/ini/reward_add')}",
+            type:"POST",
+            data:$('#dd').serialize(),
+            success:function(result){
+                var results = eval('('+result+')');
+                if(results.error == 1){
+                    $.messager.alert('提示',results.msg,'info',function(){
+                        window.location.href = "{:url('index/account/lists')}";
+                    });
+                }else {
+                    $.messager.alert('提示',results.msg,'warning');
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

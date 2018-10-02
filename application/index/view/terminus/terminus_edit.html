@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>医诊通V1.0.0</title>
+    <link rel="stylesheet" href="/public/static/css/bootstrap.css" />
+    <link rel="stylesheet" href="/public/static/css/css.css" />
+    <link href="/public/static/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/public/static/images/favicon.ico" />
+    <script type="text/javascript" src="/public/static/js/sdmenu.js"></script>
+    <link rel="stylesheet" type="text/css" href="/public/static/easyui/themes/gray/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/public/static/easyui/themes/icon.css">
+    <script type="text/javascript" src="/public/static/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/public/static/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/public/static/easyui/jquery.edatagrid.js"></script>
+    <script type="text/javascript" src="/public/static/easyui/locale/easyui-lang-zh_CN.js"></script>
+
+
+
+</head>
+<body>
+<ul class="breadcrumb">
+    首页<span class="divider">/</span>{$arr['parent_rule']}<span class="divider">/</span>{$arr['rule']}
+</ul>
+<div class="title_right"><strong>{$arr['rule']}</strong></div>
+<div style="position:absolute; right:15px;top:4px;">
+    {include file="common:userinfo"}
+    <style>
+        .breadcrumb {
+            margin: 0px;
+            padding: 5px;
+        }
+    </style>
+            <div class="margin-bottom-5">
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" href="javascript:add()">保存</a>
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-list'" href="{:url('index/terminus/lists')}">列表</a>
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-refresh'"  id="sx">刷新</a>
+            </div>
+            <div class="form_table1">
+                <form id="dd">
+                    <ul>
+                        <li><label>编码</label><input type="text" name="number" value="{$data.number}" readonly="readonly"/></li>
+                        <input type="hidden" id="admin_id" name="admin_id" value="{$data.admin_id}"/>
+                        <input type="hidden" id="id" name="id" value="{$id}"/>
+                        {if $uinfo.role_short == 'cj'}
+                        <li>
+                            <label>所属客服</label>
+                            <input type="text" placeholder="请双击选择"  name="serviceName" id="serviceName" readonly="readonly" style="border:1px solid #1BBC9B" value="{$kf_data.pkfgl_name}"/>
+                            <input type="hidden" name="serviceID" id="serviceID" value="{$kf_data.id}">
+                        </li>
+                        {/if}
+                        <li><label for="name">姓名</label><input type="text" placeholder="必填" name="name" value="{$data.name}"/></li>
+                        <li><label>登录用户名</label><input type="text" placeholder="必填" name="username" value="{$data.username}" readonly="readonly"/></li>
+                        <li><label>登录密码</label><input type="text" placeholder="必填" name="password" /></li>
+                        <li><label>手机号</label><input type="text" placeholder="必填" name="phone" value="{$data.phone}"/></li>
+                        <li><label>固定电话</label><input type="text" name="fixedphone" value="{$data.fixedphone}"/></li>
+                        <li><label>QQ</label><input type="text" name="qq" value="{$data.qq}"/></li>
+                        <li><label>邮箱</label><input type="text" name="email"  value="{$data.email}"/></li>
+                    </ul>
+                </form>
+            </div>
+</div>
+<div id="dlg" class="easyui-dialog" style="padding: 10px; width:500px; height:500px;"></div>
+<script>
+
+    $("#sx").click(function () {
+
+        var id = $("#id").val();
+
+        window.location.href = '/index.php/index/terminus/edit?id=' + id;
+    })
+
+    function add(){
+        $.ajax({
+            url:"{:url('index/terminus/edit_button')}",
+            type:"POST",
+            data:$('#dd').serialize(),
+            success:function(result){
+                var results = eval('('+result+')');
+                if(results.error == 1){
+                    $.messager.alert('提示',results.msg,'info',function(){
+                        window.location.href = "{:url('index/terminus/lists')}";
+                    });
+                }else {
+                    $.messager.alert('提示',results.msg,'warning');
+                }
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $('#dlg').dialog('close');
+    });
+
+    var Servicer_url = "{:url('index/account/getServicer')}";
+    $("#serviceName").dblclick(function () {
+
+        $('#dlg').dialog({
+            title: '请选择客服',
+            width: 620,
+            height: 550,
+            closed: false,
+            cache: false,
+            href: Servicer_url,
+            modal: true,
+            buttons: [{
+                text: '确定',
+                iconCls: 'icon-ok',
+                handler: function () {
+                    var rows = $('#dwgrid').datagrid('getSelections');
+                    console.info(rows);
+                    if (rows != null && rows.length > 0) {
+                        $('#serviceID').val(rows[0].id);
+                        $('#serviceName').val(rows[0].pkfgl_name);
+                        $('#dlg').dialog('close');
+                    }
+                }
+            }, {
+                text: '取消',
+                handler: function () {
+                    $('#dlg').dialog('close');
+                }
+            }],
+            //放到dialog事件中
+            onLoad: function () {
+                //弹出窗里的ID
+                $('#dwgrid').datagrid({
+                    onDblClickRow: function (index, rows) {
+
+                        $('#serviceID').val(rows.id);
+                        $('#serviceName').val(rows.pkfgl_name);
+
+                        $('#dlg').dialog('close');
+                    }
+                });
+            }
+        });
+    });
+
+</script>
+</body>
+</html>

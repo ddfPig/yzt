@@ -1,0 +1,133 @@
+<div class="left">
+	<script type="text/javascript">
+    var myMenu;
+    window.onload = function() {
+    myMenu = new SDMenu("my_menu");
+    myMenu.init();
+    };
+    </script>
+	
+    <div id="my_menu" class="sdmenu">
+        <div>
+            <span>关于诊所通</span>
+             <a href="{:url('index/introduction/index')}">更新系统简介</a>
+            <a href="{:url('index/updatediary/index')}">更新日记管理</a>
+            <a href="{:url('index/helpdocument/index')}">帮助文档管理</a>
+        </div>
+        
+        <div>
+            <span>诊所通用户</span>
+            <a href="{:url('index/account/lists')}">用户管理</a>
+        </div>
+        <div>
+            <span>客服管理</span>
+            <a href="{:url('index/Customer/index')}">客服管理</a>
+        </div>
+        <div>
+            <span>终端经理管理</span>
+            <a href="#">终端经理管理</a>
+        </div>
+        <div>
+            <span>安全中心</span>
+            <a href="../安全中心/修改密码.asp?ver=chaoji">修改密码</a>
+            <a href="/zhensuotong/public/index.php">退出</a>
+        </div>
+		  <div>
+            <span>关于诊所通(诊所)</span>          
+         <a href="{:url('index/systemabout/index')}">关于系统</a>
+        <a href="{:url('index/updiary/index')}">更新日记</a>
+        <a href="{:url('index/hdocument/index')}">帮助文档</a>
+        </div>
+		 <div>
+        <span>系统配置</span>
+        <a href="{:url('index/ini/index')}">初始化设置</a>
+		<a href="{:url('index/supplier/index')}">供货商类型管理</a>
+		<a href="{:url('index/supmessage/index')}">供货商资料类型管理</a>
+		<a href="{:url('index/commodity/index')}">商品分类管理</a>
+		<a href="{:url('index/treatment/index')}">适用诊疗范围管理</a>
+		<a href="{:url('index/cdisease/index')}">常见病症管理</a>
+		<a href="{:url('index/effective/index')}">有效期管理</a>
+		<a href="{:url('index/pharmacy/index')}">剂型管理</a>
+		<a href="{:url('index/unit/index')}">单位管理</a>
+		<a href="{:url('index/receipt/index')}">收款方式管理</a>
+		<a href="{:url('index/staff/index')}">职员类型管理</a>
+        <a href="{:url('index/diagnosisresult/index')}">诊疗结果管理</a>
+        <a href="{:url('index/prescription/index')}">处方药管理</a>
+        <a href="{:url('index/qualificationname/index')}">资质管理</a>
+    </div>
+
+    <div>
+        <span>基础管理</span>
+        <a href="{:url('index/clinicbase/clinicbase_list')}">基础信息更新</a>
+		<a href="{:url('index/meddepartment/index')}">诊疗科室管理</a>
+		<a href="{:url('index/clerk/index')}">职员管理</a>
+		<a href="{:url('index/base/supplier')}">供货商管理</a>
+		<a href="{:url('index/base/medicine')}">药品管理</a>
+    </div>
+
+    <div>
+        <span>业务管理</span>
+        <a href="{:url('index/purchase/index')}">采购入库</a>
+		<a href="{:url('index/store/index')}">库存管理</a>
+		<a href="{:url('index/purback/index')}">退货管理</a>
+		<a href="{:url('index/debt/index')}">欠款管理</a>
+    </div>
+	<div>
+        <span>诊疗管理</span>
+      <a href="{:url('index/cure/patient')}">患者档案管理</a>
+		<a href="{:url('index/cure/acography')}">诊疗记录管理</a>
+    </div>
+	<div>
+        <span>综合查询</span>
+      <a href="#">库存查询</a>
+	<a href="#">患者档案查询</a>
+	<a href="#">诊疗记录查询</a>
+    </div>
+	<div>
+        <span>更多设置</span>
+        <a href="../更多设置/打印设置.asp?ver=zhensuo">打印设置</a>
+        <a href="../更多设置/扫码枪设置.asp?ver=zhensuo">扫码枪设置</a>
+    </div>
+
+	<div>
+		<span>安全中心</span>
+		
+		<a href="../安全中心/修改密码.asp?ver=zhensuo">修改密码</a>
+		<a href="/zhensuotong/public/index.php">退出</a>
+	</div>
+	 <div>
+        <span>关于诊所通（职员）</span>
+        <a href="../关于诊所通/关于系统.asp?ver=zhiyuan">关于系统</a>
+        <a href="../关于诊所通/更新日记.asp?ver=zhiyuan">更新日记</a>
+        <a href="../关于诊所通/帮助文档.asp?ver=zhiyuan">帮助文档</a>
+    </div>
+	<div>
+        <span>诊疗管理</span>
+        <a href="../诊疗管理/患者档案.asp?ver=zhiyuan">患者档案</a>
+        <a href="../诊疗管理/诊疗记录.asp?ver=zhiyuan">诊疗记录</a>
+      
+    </div>
+	
+	<div>
+        <span>综合查询</span>
+       <a herf="#">库存查询</a>
+		<a herf="#">患者档案查询</a>
+		<a herf="#">诊疗记录查询</a>   
+    </div>
+	<div>
+		<span>安全中心</span>
+		<a href="../安全中心/修改密码.asp?ver=zhiyuan">修改密码</a>
+		<a href="/zhensuotong/public/index.php">退出</a>
+	</div>
+	
+	
+	
+	</div>
+   
+   
+
+    
+</div>
+
+<div class="Switch"></div>
+<script type="text/javascript">$(document).ready(function(e) {$(".Switch").click(function(){$(".left").toggle();});});</script>

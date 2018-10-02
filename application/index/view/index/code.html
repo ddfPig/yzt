@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>医诊通V1.0.0</title>
+    <link rel="stylesheet" href="/public//static/css/bootstrap.css" />
+    <link href="/public//static/css/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/public//static/css/css.css" />
+    <link rel="stylesheet" type="text/css" href="/public//static/easyui/themes/gray/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/public//static/easyui/themes/icon.css">
+    <script type="text/javascript" src="/public//static/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/public//static/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/public//static/js/sdmenu.js"></script>
+    <script type="text/javascript" src="/public//static/js/laydate/laydate.js"></script>
+    <link rel="shortcut icon" href="/public//static/images/favicon.ico" />
+    <script type="text/javascript" src="/public/static/easyui/locale/easyui-lang-zh_CN.js"></script>
+
+</head>
+<body>
+<ul class="breadcrumb">
+    首页<span class="divider">/</span>{$arr['parent_rule']}<span class="divider">/</span>{$arr['rule']}
+</ul>
+<div class="title_right"><strong>{$arr['rule']}</strong></div>
+<div style="position:absolute; right:15px;top:4px;">
+    {include file="common:userinfo"}
+    <style>
+        .breadcrumb {
+            margin: 0px;
+            padding: 5px;
+        }
+    </style>
+
+            <div class="margin-bottom-5">
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="code()">保存</a>
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-refresh'" onclick="reloadurl()">刷新</a>
+            </div>
+
+            <div id="div_data">
+                <form style="width:100%;height:100%;" id="admins">
+                    <div class="form_table1" style="display:inline-block;">
+                        <div class="row">
+                            <ul>
+                                <li>
+                                    <label>用户名</label>
+                                    <input type="text" readonly="readonly" id="admin_user" name="admin_user" style="width:156px" value="{$admin_name}" />
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <ul>
+                                <li>
+                                    <label>请输入旧密码</label>
+                                    <input type="password" id="old_admin_pass" name="old_admin_pass"  />
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <ul>
+                                <li>
+                                    <label>请输入新密码</label>
+                                    <input type="password" id="admin_pass" name="admin_pass" />
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <ul>
+                                <li>
+                                    <label>请重复输入新密码</label>
+                                    <input type="password" id="new_admin_pass" name="new_admin_pass" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+</div>
+</body>
+<script>
+    function code(){
+        $('#admins').form('submit',{
+            url: "{:url('index/index/runChangeCode')}",
+            onSubmit: function(){
+                //return $(this).form('validate');
+            },
+            success: function(result){
+                var results = eval('('+result+')');
+                if(results.code == 1){
+                    $.messager.alert('密码修改提示',results.msg,'info',function(){
+                        window.parent.location.href = "{:url('index/index/index')}";
+                    });
+
+                }else{
+
+                    $.messager.alert('密码修改提示',results.msg,'warning');
+                }
+            }
+        });
+    }
+
+    function reloadurl()
+    {
+        window.location.href = "{:url('index/index/changePass')}";
+    }
+</script>
+</html>
